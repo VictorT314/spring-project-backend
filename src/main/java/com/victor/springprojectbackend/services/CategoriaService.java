@@ -46,8 +46,9 @@ public class CategoriaService {
 	
 	//UPDATE (PUT)
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	
@@ -73,5 +74,9 @@ public class CategoriaService {
 	//FROM_DTO (CONVERSOR OBJ CATEGORIA_DTO -> CATEGORIA)
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 }
