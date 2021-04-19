@@ -25,6 +25,7 @@ import com.victor.springprojectbackend.services.CategoriaService;
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
 	
+	//INGESTÃO SERVICE
 	@Autowired
 	private CategoriaService service;
 	

@@ -18,24 +18,41 @@ import com.victor.springprojectbackend.services.exceptions.ObjectNotFoundExcepti
 
 @Service
 public class CategoriaService {
+	
+	//INGESTÃO REPOSITORY
 	@Autowired
 	private CategoriaRepository repo;
+	
+	
+	//FIND (GET_BY_ID)
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
+	
+	//FIND_ALL (GET_ALL)
+	public List<Categoria> findAll() {
+		return repo.findAll();
+	}
+	
+	
+	//INSERT (POST)
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 	
+	
+	//UPDATE (PUT)
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
 	}
 	
+	
+	//DELETE (DELETE)
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -46,15 +63,15 @@ public class CategoriaService {
 		}
 	}
 	
-	public List<Categoria> findAll() {
-		return repo.findAll();
-	}
-
+	
+	//FIND_PAGE (PAGINAÇÃO)
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
 	
+	
+	//FROM_DTO (CONVERSOR OBJ CATEGORIA_DTO -> CATEGORIA)
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
