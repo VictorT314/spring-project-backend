@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.victor.springprojectbackend.domain.Cliente;
 
+
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
